@@ -37,8 +37,11 @@
 		
 		[workingDictionary release];	
 	}
-	
-    [self popToRootViewControllerAnimated:NO];
+    
+    // Animate if root view is not an ELCImagePickerController
+    BOOL animated = ![[self.viewControllers objectAtIndex:0] isKindOfClass:[ELCImagePickerController class]];
+    [self popToRootViewControllerAnimated:animated];
+    
     [[self parentViewController] dismissModalViewControllerAnimated:YES];
     
 	if([delegate respondsToSelector:@selector(elcImagePickerController:didFinishPickingMediaWithInfo:)]) {
